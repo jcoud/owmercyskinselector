@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конфигуратор косметики</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__title">
+    <span class="topbar__eyebrow">Hero Gallery</span>
+    <h1>Конфигуратор косметики</h1>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Категории">
+    <button class="tab" data-category="skins" role="tab" aria-selected="true">
+      <span class="tab__index">01</span> Скин
+    </button>
+    <button class="tab" data-category="weaponNames" role="tab" aria-selected="false">
+      <span class="tab__index">02</span> Оружие
+    </button>
+    <button class="tab" data-category="weaponColors" role="tab" aria-selected="false">
+      <span class="tab__index">03</span> Цвет оружия
+    </button>
+  </nav>
+</header>
+
+<main class="gallery" id="gallery">
+  <!-- карточки рендерятся через app.js -->
+</main>
+
+<div class="empty-state" id="emptyState" hidden>
+  <p>В этой категории пока нет картинок.</p>
+  <p class="empty-state__hint">
+    Добавьте файлы в соответствующую папку <code>images/…</code> и запустите
+    <code>build_data.py</code> заново.
+  </p>
+</div>
+
+<footer class="selection-bar" id="selectionBar">
+  <div class="selection-bar__items">
+    <div class="selection-slot" data-slot="skins">
+      <div class="selection-slot__thumb" id="thumb-skins"></div>
+      <div class="selection-slot__text">
+        <span class="selection-slot__label">Скин</span>
+        <span class="selection-slot__value" id="value-skins">—</span>
+      </div>
+    </div>
+    <div class="selection-slot" data-slot="weaponNames">
+      <div class="selection-slot__thumb" id="thumb-weaponNames"></div>
+      <div class="selection-slot__text">
+        <span class="selection-slot__label">Оружие</span>
+        <span class="selection-slot__value" id="value-weaponNames">—</span>
+      </div>
+    </div>
+    <div class="selection-slot" data-slot="weaponColors">
+      <div class="selection-slot__thumb" id="thumb-weaponColors"></div>
+      <div class="selection-slot__text">
+        <span class="selection-slot__label">Цвет</span>
+        <span class="selection-slot__value" id="value-weaponColors">—</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="selection-bar__output">
+    <input type="text" id="outputField" class="selection-bar__field" spellcheck="false" aria-label="Итоговый текст">
+    <button class="btn btn--ghost" id="resetFormatBtn" title="Собрать текст заново из выбранного">
+      Сбросить формат
+    </button>
+    <button class="btn btn--primary" id="copyBtn">
+      Копировать
+    </button>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

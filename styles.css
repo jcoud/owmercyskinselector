@@ -1,0 +1,429 @@
+:root {
+  --bg: #12141c;
+  --bg-elevated: #191c27;
+  --card-bg: #1e2230;
+  --card-border: #2b3044;
+  --text: #eef0f6;
+  --text-muted: #8890a4;
+  --accent-gold: #e8b34a;
+  --accent-gold-dim: #6b5628;
+  --accent-cyan: #5fd4e8;
+  --danger: #e8695f;
+  --bar-height: 104px;
+
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(ellipse at top, #1a1e2c 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+body {
+  padding-bottom: calc(var(--bar-height) + 24px);
+}
+
+/* ---------- Верхняя панель ---------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 32px;
+  background: rgba(18, 20, 28, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.topbar__eyebrow {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 2px;
+}
+
+.topbar h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--bg-elevated);
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+}
+
+.tab {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab__index {
+  font-size: 11px;
+  opacity: 0.55;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab[aria-selected="true"] {
+  background: var(--card-bg);
+  color: var(--accent-gold);
+  box-shadow: inset 0 0 0 1px var(--accent-gold-dim);
+}
+
+/* ---------- Галерея карточек ---------- */
+
+.gallery {
+  padding: 28px 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.reference-shot {
+  margin-bottom: 24px;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+
+.reference-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card--text-only {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+}
+
+.card--text-only .card__name {
+  font-size: 16px;
+  padding: 18px 12px;
+  white-space: normal;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-cyan);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+.card.is-selected {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px var(--accent-gold), 0 0 22px -4px var(--accent-gold);
+}
+
+.card.is-selected::after {
+  content: "✓";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  color: #1a1508;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__image-wrap {
+  aspect-ratio: 1 / 1;
+  background: #14171f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card__image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 8px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Пустое состояние ---------- */
+
+.empty-state {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 32px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty-state__hint code {
+  background: var(--bg-elevated);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: var(--accent-cyan);
+  font-size: 13px;
+}
+
+/* ---------- Закреплённая нижняя панель ---------- */
+
+.selection-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  height: var(--bar-height);
+  background: rgba(15, 17, 24, 0.96);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 32px;
+  /* важно: эта область не должна двигаться при скролле основного контента */
+}
+
+.selection-bar__items {
+  display: flex;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.selection-slot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 130px;
+}
+
+.selection-slot__thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--card-border);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.selection-slot__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.selection-slot__thumb--text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-gold-dim), var(--bg-elevated));
+}
+
+.selection-slot__thumb--text::after {
+  content: "Aa";
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+
+.selection-slot__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.selection-slot__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.selection-slot__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selection-bar__output {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.selection-bar__field {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+
+.selection-bar__field:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  border-radius: 8px;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--card-border);
+  color: var(--text-muted);
+}
+
+.btn--ghost:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.btn--primary {
+  background: var(--accent-gold);
+  color: #1a1508;
+}
+
+.btn--primary:hover {
+  background: #f0c169;
+}
+
+.btn--primary.is-copied {
+  background: var(--accent-cyan);
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 760px) {
+  :root {
+    --bar-height: 168px;
+  }
+
+  .topbar {
+    padding: 14px 16px;
+  }
+
+  .topbar h1 {
+    font-size: 20px;
+  }
+
+  .gallery {
+    padding: 18px 16px;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+
+  .selection-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 16px;
+    gap: 8px;
+  }
+
+  .selection-bar__items {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .selection-bar__output {
+    width: 100%;
+  }
+}
+
+/* уважаем настройку "меньше анимации" */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
