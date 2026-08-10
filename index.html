@@ -16,7 +16,7 @@
     <span class="topbar__eyebrow">Hero Gallery</span>
     <h1>Конфигуратор косметики</h1>
   </div>
-  <nav class="tabs" role="tablist" aria-label="Категории">
+  <nav class="tabs" role="tablist" aria-label="Быстрый переход по разделам">
     <button class="tab" data-category="skins" role="tab" aria-selected="true">
       <span class="tab__index">01</span> Скин
     </button>
@@ -29,17 +29,28 @@
   </nav>
 </header>
 
-<main class="gallery" id="gallery">
-  <!-- карточки рендерятся через app.js -->
-</main>
+<main class="page">
+  <section class="section" id="section-skins" data-category="skins">
+    <h2 class="section__title"><span class="section__index">01</span> Скин</h2>
+    <div class="section__body" id="body-skins">
+      <!-- рендерится через app.js -->
+    </div>
+  </section>
 
-<div class="empty-state" id="emptyState" hidden>
-  <p>В этой категории пока нет картинок.</p>
-  <p class="empty-state__hint">
-    Добавьте файлы в соответствующую папку <code>images/…</code> и запустите
-    <code>build_data.py</code> заново.
-  </p>
-</div>
+  <section class="section" id="section-weaponNames" data-category="weaponNames">
+    <h2 class="section__title"><span class="section__index">02</span> Оружие</h2>
+    <div class="section__body" id="body-weaponNames">
+      <!-- рендерится через app.js -->
+    </div>
+  </section>
+
+  <section class="section" id="section-weaponColors" data-category="weaponColors">
+    <h2 class="section__title"><span class="section__index">03</span> Цвет оружия</h2>
+    <div class="section__body" id="body-weaponColors">
+      <!-- рендерится через app.js -->
+    </div>
+  </section>
+</main>
 
 <footer class="selection-bar" id="selectionBar">
   <div class="selection-bar__items">
