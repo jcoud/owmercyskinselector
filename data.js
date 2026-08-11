@@ -15,8 +15,7 @@ const DATA = {
         "name": "AMBER",
         "image": "images/skins/AMBER.webp",
         "rarity": "e",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "ATLANTA REIGN AWAY",
@@ -150,8 +149,7 @@ const DATA = {
         "name": "CELESTIAL",
         "image": "images/skins/CELESTIAL.webp",
         "rarity": "r",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "CHENGDU HUNTERS AWAY",
@@ -353,8 +351,7 @@ const DATA = {
         "name": "COBALT",
         "image": "images/skins/COBALT.webp",
         "rarity": "e",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "COMBAT MEDIC ZIEGLER",
@@ -632,8 +629,7 @@ const DATA = {
         "name": "MIST",
         "image": "images/skins/MIST.webp",
         "rarity": "r",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "MUSIC FESTIVAL",
@@ -667,8 +663,7 @@ const DATA = {
         "name": "ORCHID",
         "image": "images/skins/ORCHID.webp",
         "rarity": "r",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "OVERWATCH 2",
@@ -1060,8 +1055,7 @@ const DATA = {
         "name": "VERDANT",
         "image": "images/skins/VERDANT.webp",
         "rarity": "r",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "WASHINGTON JUSTICE AWAY",
