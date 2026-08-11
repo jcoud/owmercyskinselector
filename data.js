@@ -67,79 +67,79 @@ const DATA = {
           {
             "category": 1,
             "variant": 1,
-            "name": "Эффект 1.1",
+            "name": "# 1.1",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_1_1.png"
           },
           {
             "category": 1,
             "variant": 2,
-            "name": "Эффект 1.2",
+            "name": "# 1.2",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_1_2.png"
           },
           {
             "category": 2,
             "variant": 1,
-            "name": "Эффект 2.1",
+            "name": "# 2.1",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_2_1.png"
           },
           {
             "category": 2,
             "variant": 2,
-            "name": "Эффект 2.2",
+            "name": "# 2.2",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_2_2.png"
           },
           {
             "category": 3,
             "variant": 1,
-            "name": "Эффект 3.1",
+            "name": "# 3.1",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_3_1.png"
           },
           {
             "category": 3,
             "variant": 2,
-            "name": "Эффект 3.2",
+            "name": "# 3.2",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_3_2.png"
           },
           {
             "category": 3,
             "variant": 3,
-            "name": "Эффект 3.3",
+            "name": "# 3.3",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_3_3.png"
           },
           {
             "category": 4,
             "variant": 1,
-            "name": "Эффект 4.1",
+            "name": "# 4.1",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_1.png"
           },
           {
             "category": 4,
             "variant": 2,
-            "name": "Эффект 4.2",
+            "name": "# 4.2",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_2.png"
           },
           {
             "category": 4,
             "variant": 3,
-            "name": "Эффект 4.3",
+            "name": "# 4.3",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_3.png"
           },
           {
             "category": 4,
             "variant": 4,
-            "name": "Эффект 4.4",
+            "name": "# 4.4",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_4.png"
           },
           {
             "category": 4,
             "variant": 5,
-            "name": "Эффект 4.5",
+            "name": "# 4.5",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_5.png"
           },
           {
             "category": 4,
             "variant": 6,
-            "name": "Эффект 4.6",
+            "name": "# 4.6",
             "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_6.png"
           }
         ],
@@ -435,6 +435,13 @@ const DATA = {
       {
         "name": "FALLEN ANGEL",
         "image": "images/skins/FALLEN%20ANGEL.webp",
+        "rarity": "l",
+        "type": "Shop",
+        "typeIcon": "images/types/Shop.webp"
+      },
+      {
+        "name": "FANCY FANGS",
+        "image": "images/skins/FANCY%20FANGS.png",
         "rarity": "l",
         "type": "Shop",
         "typeIcon": "images/types/Shop.webp"
@@ -976,73 +983,73 @@ const DATA = {
           {
             "category": 1,
             "variant": 1,
-            "name": "Эффект 1.1",
+            "name": "# 1.1",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_1_1.png"
           },
           {
             "category": 1,
             "variant": 2,
-            "name": "Эффект 1.2",
+            "name": "# 1.2",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_1_2.png"
           },
           {
             "category": 2,
             "variant": 1,
-            "name": "Эффект 2.1",
+            "name": "# 2.1",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_2_1.png"
           },
           {
             "category": 2,
             "variant": 2,
-            "name": "Эффект 2.2",
+            "name": "# 2.2",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_2_2.png"
           },
           {
             "category": 3,
             "variant": 1,
-            "name": "Эффект 3.1",
+            "name": "# 3.1",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_3_1.png"
           },
           {
             "category": 3,
             "variant": 2,
-            "name": "Эффект 3.2",
+            "name": "# 3.2",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_3_2.png"
           },
           {
             "category": 3,
             "variant": 3,
-            "name": "Эффект 3.3",
+            "name": "# 3.3",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_3_3.png"
           },
           {
             "category": 4,
             "variant": 1,
-            "name": "Эффект 4.1",
+            "name": "# 4.1",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_1.png"
           },
           {
             "category": 4,
             "variant": 2,
-            "name": "Эффект 4.2",
+            "name": "# 4.2",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_2.png"
           },
           {
             "category": 4,
             "variant": 3,
-            "name": "Эффект 4.3",
+            "name": "# 4.3",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_3.png"
           },
           {
             "category": 4,
             "variant": 4,
-            "name": "Эффект 4.4",
+            "name": "# 4.4",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_4.png"
           },
           {
             "category": 4,
             "variant": 5,
-            "name": "Эффект 4.5",
+            "name": "# 4.5",
             "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_5.png"
           }
         ],

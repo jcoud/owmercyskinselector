@@ -332,6 +332,50 @@ body {
 	z-index: 1;
 }
 
+/* ---------- Забаненные пункты (BAN_LIST в app.js) ---------- */
+/* Карточка показывается в списке, но выбрать её нельзя: ховера нет,
+   содержимое приглушено, в правом верхнем углу — знак запрета. */
+
+.card--banned {
+	cursor: not-allowed;
+}
+
+/* гасим ховер-эффект базовой карточки (курсор наведён, но реакции нет) */
+.card--banned:hover {
+	transform: none;
+	border-color: var(--card-border);
+}
+
+/* приглушаем всё содержимое, КРОМЕ значка запрета — он должен остаться
+   ярким и читаемым, поэтому opacity/grayscale вешаем не на саму карточку */
+.card--banned > *:not(.card__ban) {
+	opacity: 0.4;
+	filter: grayscale(0.9);
+}
+
+/* значок mythic — псевдоэлемент самой карточки, под правило выше не попадает */
+.card--banned.card--mythic::before {
+	opacity: 0.4;
+	filter: grayscale(0.9);
+}
+
+.card__ban {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background-color: rgba(20, 22, 29, 0.85);
+	/* знак "запрещено"; цвет обводки зашит в сам SVG (#ff5a5f — тон --danger,
+	   переменные CSS внутри data-URI не работают) */
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff5a5f' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cline x1='5.6' y1='5.6' x2='18.4' y2='18.4'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 16px 16px;
+	z-index: 2;
+}
+
 /* ---------- Попап выбора mythic-эффектов ---------- */
 
 .mythic-popover {

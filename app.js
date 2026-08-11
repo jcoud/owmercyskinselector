@@ -6,6 +6,30 @@
 	//   weaponNames: {...},
 	//   weaponColors: {...}
 	// }
+
+	// ---------- Бан-лист ----------
+	//
+	// Пункты отсюда ПОКАЗЫВАЮТСЯ на сайте, но выбрать их нельзя: карточка
+	// приглушена, ховера нет, в правом верхнем углу — знак запрета.
+	//
+	// Названия пишем так же, как они называются в данных:
+	//   skins        — ключ из data.json                  ("FANCY FANGS")
+	//   weaponNames  — имя файла картинки без расширения   ("HARD LIGHT")
+	//   weaponColors — строка из TEXT_CATEGORY_ITEMS в build_data.py ("GOLDEN")
+	//
+	// Списки раздельные по категориям намеренно: названия пересекаются
+	// (например "ROSE GOLD" есть и среди скинов, и среди оружия), иначе бан
+	// одного молча забанил бы и другое. Можно написать и одним плоским
+	// списком (const BAN_LIST = ['FANCY FANGS']) — тогда бан действует сразу
+	// во всех категориях.
+	// Регистр и лишние пробелы по краям не важны. Если название не найдено
+	// в данных — в консоли будет предупреждение (чтобы опечатка не молчала).
+	const BAN_LIST = {
+		skins: ['HONEY BEE', 'BLACK CAT'],
+		weaponNames: ['HARD LIGHT'],
+		weaponColors: [],
+	}
+
 	const data =
 		typeof DATA !== 'undefined' ? DATA : (
 			{
@@ -16,6 +40,37 @@
 		)
 
 	const CATEGORIES = ['skins', 'weaponNames', 'weaponColors']
+
+	function normalizeName(name) {
+		return String(name == null ? '' : name)
+			.trim()
+			.toUpperCase()
+	}
+
+	// разворачиваем BAN_LIST в Set нормализованных названий на каждую категорию
+	const bannedNames = new Map(
+		CATEGORIES.map(category => {
+			const names = Array.isArray(BAN_LIST) ? BAN_LIST : BAN_LIST[category] || []
+			return [category, new Set(names.map(normalizeName).filter(Boolean))]
+		}),
+	)
+
+	function isBanned(category, name) {
+		const set = bannedNames.get(category)
+		return Boolean(set && set.has(normalizeName(name)))
+	}
+
+	/** Предупреждает в консоли о названиях из BAN_LIST, которых нет в данных (чтобы опечатка не молчала). */
+	function warnUnknownBans() {
+		bannedNames.forEach((names, category) => {
+			const present = new Set(((data[category] && data[category].items) || []).map(i => normalizeName(i.name)))
+			names.forEach(name => {
+				if (!present.has(name)) {
+					console.warn(`BAN_LIST.${category}: пункт "${name}" не найден в данных — проверьте название`)
+				}
+			})
+		})
+	}
 
 	// Фирменные цвета для конкретных названий цветов оружия (регистронезависимо).
 	// Применяются и к карточкам выбора, и к итоговому блоку конфигурации.
@@ -226,7 +281,15 @@
 			const isMythic = Array.isArray(item.aspects) && item.aspects.length > 0
 			if (isMythic) card.classList.add('card--mythic')
 
-			const isSelected = selection[category] && selection[category].name === item.name
+			const isBannedItem = isBanned(category, item.name)
+			if (isBannedItem) {
+				card.classList.add('card--banned')
+				card.setAttribute('aria-disabled', 'true')
+				card.tabIndex = -1 // из обхода по Tab исключаем, но карточка остаётся видимой
+				card.title = 'Недоступно для выбора'
+			}
+
+			const isSelected = !isBannedItem && selection[category] && selection[category].name === item.name
 			if (isSelected) card.classList.add('is-selected')
 			card.setAttribute('aria-selected', String(isSelected))
 
@@ -251,10 +314,16 @@
 			nameEl.title = item.name
 
 			if (!item.image && colorHex) {
-				card.style.background = colorHex
-				const textColor = contrastTextColor(colorHex)
-				card.style.color = textColor
-				nameEl.style.color = textColor
+				if (isBannedItem) {
+					// забаненный цвет не заливаем целиком — иначе яркая плашка
+					// читается как активная; фирменный цвет оставляем в тексте
+					nameEl.style.color = colorHex
+				} else {
+					card.style.background = colorHex
+					const textColor = contrastTextColor(colorHex)
+					card.style.color = textColor
+					nameEl.style.color = textColor
+				}
 			}
 
 			if (item.rarity) {
@@ -281,7 +350,13 @@
 
 			card.appendChild(nameEl)
 
-			if (isMythic) {
+			if (isBannedItem) {
+				// значок запрета поверх карточки; сам обработчик клика не вешаем
+				const banBadge = document.createElement('span')
+				banBadge.className = 'card__ban'
+				banBadge.setAttribute('aria-hidden', 'true')
+				card.appendChild(banBadge)
+			} else if (isMythic) {
 				card.addEventListener('click', evt => openMythicPopover(evt.currentTarget, category, item))
 			} else {
 				card.addEventListener('click', () => selectItem(category, item))
@@ -302,6 +377,7 @@
 	}
 
 	function selectItem(category, item) {
+		if (isBanned(category, item.name)) return // страховка: забаненный пункт не выбирается никогда
 		// повторный клик по уже выбранному пункту снимает выбор
 		const alreadySelected = selection[category] && selection[category].name === item.name
 		selection[category] = alreadySelected ? null : item
@@ -329,6 +405,7 @@
 	}
 
 	function openMythicPopover(cardEl, category, item) {
+		if (isBanned(category, item.name)) return // страховка: у забаненного скина попап не открываем
 		if (openPopover && openPopover.itemName === item.name) return // уже открыт для этой же карточки
 		closeMythicPopover()
 
@@ -688,6 +765,7 @@
 		if (evt.key === 'Escape') closeMythicPopover()
 	})
 
+	warnUnknownBans()
 	setupSkinsFilterBar()
 	renderAllSections()
 	renderSelectionBar()
