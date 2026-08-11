@@ -329,7 +329,10 @@ body {
 .mythic-popover {
   position: absolute;
   z-index: 30;
-  width: 280px;
+  width: 320px;
+  max-width: calc(100vw - 24px);
+  max-height: 70vh;
+  overflow-y: auto;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 12px;
@@ -347,10 +350,16 @@ body {
   letter-spacing: 0.04em;
 }
 
-.mythic-popover__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.mythic-popover__rows {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
+}
+
+.mythic-popover__row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .mythic-popover__option {
@@ -361,6 +370,8 @@ body {
   cursor: pointer;
   text-align: center;
   padding: 0;
+  width: 80px;
+  flex-shrink: 0;
   transition: border-color 0.15s ease;
 }
 

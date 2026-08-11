@@ -8,8 +8,8 @@ const DATA = {
         "name": "2019 ATLANTIC ALL-STARS",
         "image": "images/skins/2019%20ATLANTIC%20ALL-STARS.webp",
         "rarity": "l",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "AMBER",
@@ -22,15 +22,15 @@ const DATA = {
         "name": "ATLANTA REIGN AWAY",
         "image": "images/skins/ATLANTA%20REIGN%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "ATLANTA REIGN HOME",
         "image": "images/skins/ATLANTA%20REIGN%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "BEACH RESCUE",
@@ -63,6 +63,86 @@ const DATA = {
       {
         "name": "CELESTIAL GUARDIAN",
         "image": "images/skins/CELESTIAL%20GUARDIAN.webp",
+        "aspects": [
+          {
+            "category": 1,
+            "variant": 1,
+            "name": "Эффект 1.1",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_1_1.png"
+          },
+          {
+            "category": 1,
+            "variant": 2,
+            "name": "Эффект 1.2",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_1_2.png"
+          },
+          {
+            "category": 2,
+            "variant": 1,
+            "name": "Эффект 2.1",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_2_1.png"
+          },
+          {
+            "category": 2,
+            "variant": 2,
+            "name": "Эффект 2.2",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_2_2.png"
+          },
+          {
+            "category": 3,
+            "variant": 1,
+            "name": "Эффект 3.1",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_3_1.png"
+          },
+          {
+            "category": 3,
+            "variant": 2,
+            "name": "Эффект 3.2",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_3_2.png"
+          },
+          {
+            "category": 3,
+            "variant": 3,
+            "name": "Эффект 3.3",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_3_3.png"
+          },
+          {
+            "category": 4,
+            "variant": 1,
+            "name": "Эффект 4.1",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_1.png"
+          },
+          {
+            "category": 4,
+            "variant": 2,
+            "name": "Эффект 4.2",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_2.png"
+          },
+          {
+            "category": 4,
+            "variant": 3,
+            "name": "Эффект 4.3",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_3.png"
+          },
+          {
+            "category": 4,
+            "variant": 4,
+            "name": "Эффект 4.4",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_4.png"
+          },
+          {
+            "category": 4,
+            "variant": 5,
+            "name": "Эффект 4.5",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_5.png"
+          },
+          {
+            "category": 4,
+            "variant": 6,
+            "name": "Эффект 4.6",
+            "image": "images/skins/mythic_aspects/CELESTIAL%20GUARDIAN/effect_4_6.png"
+          }
+        ],
         "rarity": "m",
         "type": "mythic-configurable"
       },
@@ -77,190 +157,190 @@ const DATA = {
         "name": "CHENGDU HUNTERS AWAY",
         "image": "images/skins/CHENGDU%20HUNTERS%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "CHENGDU HUNTERS HOME",
         "image": "images/skins/CHENGDU%20HUNTERS%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "CLASSIC CHENGDU HUNTERS AWAY",
         "image": "images/skins/CLASSIC%20CHENGDU%20HUNTERS%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC CHENGDU HUNTERS",
         "image": "images/skins/CLASSIC%20CHENGDU%20HUNTERS.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC CONTENDERS AWAY",
         "image": "images/skins/CLASSIC%20CONTENDERS%20AWAY.png",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC CONTENDERS",
         "image": "images/skins/CLASSIC%20CONTENDERS.png",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC DALLAS FUEL AWAY",
         "image": "images/skins/CLASSIC%20DALLAS%20FUEL%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC DALLAS FUEL",
         "image": "images/skins/CLASSIC%20DALLAS%20FUEL.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC FLORIDA MAYHEM AWAY",
         "image": "images/skins/CLASSIC%20FLORIDA%20MAYHEM%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC FLORIDA MAYHEM",
         "image": "images/skins/CLASSIC%20FLORIDA%20MAYHEM.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC GUANGZHOU CHARGE AWAY",
         "image": "images/skins/CLASSIC%20GUANGZHOU%20CHARGE%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC GUANGZHOU CHARGE",
         "image": "images/skins/CLASSIC%20GUANGZHOU%20CHARGE.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC HANGZHOU SPARK AWAY",
         "image": "images/skins/CLASSIC%20HANGZHOU%20SPARK%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC HANGZHOU SPARK",
         "image": "images/skins/CLASSIC%20HANGZHOU%20SPARK.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC HOUSTON OUTLAWS AWAY",
         "image": "images/skins/CLASSIC%20HOUSTON%20OUTLAWS%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC HOUSTON OUTLAWS",
         "image": "images/skins/CLASSIC%20HOUSTON%20OUTLAWS.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC LONDON SPITFIRE AWAY",
         "image": "images/skins/CLASSIC%20LONDON%20SPITFIRE%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC LONDON SPITFIRE",
         "image": "images/skins/CLASSIC%20LONDON%20SPITFIRE.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC LOS ANGELES GLADIATORS AWAY",
         "image": "images/skins/CLASSIC%20LOS%20ANGELES%20GLADIATORS%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC LOS ANGELES GLADIATORS",
         "image": "images/skins/CLASSIC%20LOS%20ANGELES%20GLADIATORS.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC PHILADELPHIA FUSION AWAY",
         "image": "images/skins/CLASSIC%20PHILADELPHIA%20FUSION%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC SAN FRANCISCO SHOCK AWAY",
         "image": "images/skins/CLASSIC%20SAN%20FRANCISCO%20SHOCK%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC SAN FRANCISCO SHOCK",
         "image": "images/skins/CLASSIC%20SAN%20FRANCISCO%20SHOCK.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC SEOUL DYNASTY AWAY",
         "image": "images/skins/CLASSIC%20SEOUL%20DYNASTY%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC SEOUL DYNASTY",
         "image": "images/skins/CLASSIC%20SEOUL%20DYNASTY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC TORONTO DEFIANT AWAY",
         "image": "images/skins/CLASSIC%20TORONTO%20DEFIANT%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLASSIC TORONTO DEFIANT",
         "image": "images/skins/CLASSIC%20TORONTO%20DEFIANT.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "CLOUDY DAY",
@@ -308,15 +388,15 @@ const DATA = {
         "name": "DALLAS FUEL AWAY",
         "image": "images/skins/DALLAS%20FUEL%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "DALLAS FUEL HOME",
         "image": "images/skins/DALLAS%20FUEL%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "DECENNIUM",
@@ -377,15 +457,15 @@ const DATA = {
         "name": "FLORIDA MAYHEM AWAY",
         "image": "images/skins/FLORIDA%20MAYHEM%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "FLORIDA MAYHEM HOME",
         "image": "images/skins/FLORIDA%20MAYHEM%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "FORMALWEAR",
@@ -398,35 +478,36 @@ const DATA = {
         "name": "FORTUNE",
         "image": "images/skins/FORTUNE.webp",
         "rarity": "e",
-        "type": "Lunar New Year"
+        "type": "Lunar New Year",
+        "typeIcon": "images/types/Lunar%20New%20Year.webp"
       },
       {
         "name": "GUANGZHOU CHARGE AWAY",
         "image": "images/skins/GUANGZHOU%20CHARGE%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "GUANGZHOU CHARGE HOME",
         "image": "images/skins/GUANGZHOU%20CHARGE%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "HANGZHOU SPARK AWAY",
         "image": "images/skins/HANGZHOU%20SPARK%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "HANGZHOU SPARK HOME",
         "image": "images/skins/HANGZHOU%20SPARK%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "HAPPY HOLLY",
@@ -453,15 +534,15 @@ const DATA = {
         "name": "HOUSTON OUTLAWS AWAY",
         "image": "images/skins/HOUSTON%20OUTLAWS%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "HOUSTON OUTLAWS HOME",
         "image": "images/skins/HOUSTON%20OUTLAWS%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "IMP",
@@ -474,7 +555,8 @@ const DATA = {
         "name": "INFINITE SEER",
         "image": "images/skins/INFINITE%20SEER.webp",
         "rarity": "e",
-        "type": "Battle Pass"
+        "type": "Battle Pass",
+        "typeIcon": "images/types/Battle%20Pass.webp"
       },
       {
         "name": "IVORY ROSE",
@@ -501,29 +583,29 @@ const DATA = {
         "name": "LONDON SPITFIRE AWAY",
         "image": "images/skins/LONDON%20SPITFIRE%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "LONDON SPITFIRE HOME",
         "image": "images/skins/LONDON%20SPITFIRE%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "LOS ANGELES GLADIATORS AWAY",
         "image": "images/skins/LOS%20ANGELES%20GLADIATORS%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "LOS ANGELES GLADIATORS HOME",
         "image": "images/skins/LOS%20ANGELES%20GLADIATORS%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "MAGE",
@@ -536,7 +618,8 @@ const DATA = {
         "name": "MIKO",
         "image": "images/skins/MIKO.webp",
         "rarity": "l",
-        "type": "Battle Pass"
+        "type": "Battle Pass",
+        "typeIcon": "images/types/Battle%20Pass.webp"
       },
       {
         "name": "MIST",
@@ -563,15 +646,15 @@ const DATA = {
         "name": "NEW YORK EXCELSIOR AWAY",
         "image": "images/skins/NEW%20YORK%20EXCELSIOR%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "NEW YORK EXCELSIOR HOME",
         "image": "images/skins/NEW%20YORK%20EXCELSIOR%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "ORCHID",
@@ -584,7 +667,7 @@ const DATA = {
         "name": "OVERWATCH 2",
         "image": "images/skins/OVERWATCH%202.webp",
         "rarity": "c",
-        "type": "common"
+        "type": "Common"
       },
       {
         "name": "OVERWATCH CHAMPIONS SERIES AWAY",
@@ -604,49 +687,49 @@ const DATA = {
         "name": "OVERWATCH CLASSIC",
         "image": "images/skins/OVERWATCH%20CLASSIC.webp",
         "rarity": "c",
-        "type": "common"
+        "type": "Common"
       },
       {
         "name": "OVERWATCH CONTENDERS AWAY",
         "image": "images/skins/OVERWATCH%20CONTENDERS%20AWAY.png",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "OVERWATCH CONTENDERS HOME",
         "image": "images/skins/OVERWATCH%20CONTENDERS%20HOME.png",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "OVERWATCH LEAGUE GRAY HOME CLASSIC",
         "image": "images/skins/OVERWATCH%20LEAGUE%20GRAY%20HOME%20CLASSIC.png",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "OVERWATCH LEAGUE GRAY HOME",
         "image": "images/skins/OVERWATCH%20LEAGUE%20GRAY%20HOME.png",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "OVERWATCH LEAGUE WHITE CLASSIC",
         "image": "images/skins/OVERWATCH%20LEAGUE%20WHITE%20CLASSIC.png",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "OVERWATCH LEAGUE WHITE",
         "image": "images/skins/OVERWATCH%20LEAGUE%20WHITE.png",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "OWL GUARDIAN",
@@ -666,8 +749,8 @@ const DATA = {
         "name": "PHILADELPHIA FUSION",
         "image": "images/skins/PHILADELPHIA%20FUSION.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League Classic",
+        "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
         "name": "PINK",
@@ -722,15 +805,15 @@ const DATA = {
         "name": "ROYAL GLADIATOR",
         "image": "images/skins/ROYAL%20GLADIATOR.webp",
         "rarity": "l",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "ROYAL KNIGHT",
         "image": "images/skins/ROYAL%20KNIGHT.webp",
         "rarity": "l",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "ROYAL PRINCESS",
@@ -750,63 +833,64 @@ const DATA = {
         "name": "SAN FRANCISCO SHOCK AWAY",
         "image": "images/skins/SAN%20FRANCISCO%20SHOCK%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "SAN FRANCISCO SHOCK HOME",
         "image": "images/skins/SAN%20FRANCISCO%20SHOCK%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "SEOLBIM",
         "image": "images/skins/SEOLBIM.webp",
         "rarity": "l",
-        "type": "Lunar New Year"
+        "type": "Lunar New Year",
+        "typeIcon": "images/types/Lunar%20New%20Year.webp"
       },
       {
         "name": "SEOUL DYNASTY AWAY",
         "image": "images/skins/SEOUL%20DYNASTY%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "SEOUL DYNASTY HOME",
         "image": "images/skins/SEOUL%20DYNASTY%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "SEOUL INFERNAL AWAY",
         "image": "images/skins/SEOUL%20INFERNAL%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "SEOUL INFERNAL HOME",
         "image": "images/skins/SEOUL%20INFERNAL%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "SHANGHAI DRAGONS AWAY",
         "image": "images/skins/SHANGHAI%20DRAGONS%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "SHANGHAI DRAGONS HOME",
         "image": "images/skins/SHANGHAI%20DRAGONS%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "SIGRúN",
@@ -833,21 +917,22 @@ const DATA = {
         "name": "SUGAR PLUM FAIRY",
         "image": "images/skins/SUGAR%20PLUM%20FAIRY.webp",
         "rarity": "l",
-        "type": "Winter Wonderland "
+        "type": "Winter Wonderland",
+        "typeIcon": "images/types/Winter%20Wonderland.webp"
       },
       {
         "name": "TORONTO DEFIANT AWAY",
         "image": "images/skins/TORONTO%20DEFIANT%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "TORONTO DEFIANT HOME",
         "image": "images/skins/TORONTO%20DEFIANT%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "VALKYRIE",
@@ -860,33 +945,107 @@ const DATA = {
         "name": "VANCOUVER TITANS AWAY",
         "image": "images/skins/VANCOUVER%20TITANS%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "VANCOUVER TITANS HOME",
         "image": "images/skins/VANCOUVER%20TITANS%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "VEGAS ETERNAL AWAY",
         "image": "images/skins/VEGAS%20ETERNAL%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "VEGAS ETERNAL HOME",
         "image": "images/skins/VEGAS%20ETERNAL%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "VENGEANCE",
         "image": "images/skins/VENGEANCE.webp",
+        "aspects": [
+          {
+            "category": 1,
+            "variant": 1,
+            "name": "Эффект 1.1",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_1_1.png"
+          },
+          {
+            "category": 1,
+            "variant": 2,
+            "name": "Эффект 1.2",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_1_2.png"
+          },
+          {
+            "category": 2,
+            "variant": 1,
+            "name": "Эффект 2.1",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_2_1.png"
+          },
+          {
+            "category": 2,
+            "variant": 2,
+            "name": "Эффект 2.2",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_2_2.png"
+          },
+          {
+            "category": 3,
+            "variant": 1,
+            "name": "Эффект 3.1",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_3_1.png"
+          },
+          {
+            "category": 3,
+            "variant": 2,
+            "name": "Эффект 3.2",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_3_2.png"
+          },
+          {
+            "category": 3,
+            "variant": 3,
+            "name": "Эффект 3.3",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_3_3.png"
+          },
+          {
+            "category": 4,
+            "variant": 1,
+            "name": "Эффект 4.1",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_1.png"
+          },
+          {
+            "category": 4,
+            "variant": 2,
+            "name": "Эффект 4.2",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_2.png"
+          },
+          {
+            "category": 4,
+            "variant": 3,
+            "name": "Эффект 4.3",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_3.png"
+          },
+          {
+            "category": 4,
+            "variant": 4,
+            "name": "Эффект 4.4",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_4.png"
+          },
+          {
+            "category": 4,
+            "variant": 5,
+            "name": "Эффект 4.5",
+            "image": "images/skins/mythic_aspects/VENGEANCE/effect_4_5.png"
+          }
+        ],
         "rarity": "m",
         "type": "mythic-configurable"
       },
@@ -901,15 +1060,15 @@ const DATA = {
         "name": "WASHINGTON JUSTICE AWAY",
         "image": "images/skins/WASHINGTON%20JUSTICE%20AWAY.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "WASHINGTON JUSTICE HOME",
         "image": "images/skins/WASHINGTON%20JUSTICE%20HOME.webp",
         "rarity": "e",
-        "type": "Overwatch League",
-        "typeIcon": "images/types/Overwatch%20League.webp"
+        "type": "Overwatch League OW2",
+        "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
         "name": "WING ZERO",
@@ -943,7 +1102,8 @@ const DATA = {
         "name": "ZHUQUE",
         "image": "images/skins/ZHUQUE.webp",
         "rarity": "l",
-        "type": "Lunar New Year"
+        "type": "Lunar New Year",
+        "typeIcon": "images/types/Lunar%20New%20Year.webp"
       },
       {
         "name": "ZOMBIE DOCTOR",
@@ -972,7 +1132,7 @@ const DATA = {
     ]
   },
   "weaponColors": {
-    "referenceImage": null,
+    "referenceImage": "images/VARIANTS.png",
     "items": [
       {
         "name": "GOLDEN"

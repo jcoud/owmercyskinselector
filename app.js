@@ -64,6 +64,19 @@
   // Порядок редкости от низшей к высшей — используется для сортировки "по раритетности".
   const RARITY_ORDER = { c: 0, r: 1, e: 2, l: 3, u: 4, m: 5 };
 
+  // Отображаемое название для type — то, что реально хранится в data.json
+  // (например "mythic-configurable"), используется для фильтрации как есть,
+  // а здесь просто красивая подпись для показа на сайте. Значения, которых
+  // нет в этом списке, показываются как есть (без перевода).
+  const TYPE_LABELS = {
+    "mythic-configurable": "Mythic",
+  };
+
+  function getTypeLabel(type) {
+    if (!type) return "";
+    return TYPE_LABELS[type] || type;
+  }
+
   /** Применяет (или сбрасывает, если rarity нет/неизвестна) стиль редкости к элементу с текстом названия. */
   function applyRarityStyle(el, rarity) {
     el.classList.remove("rarity-mythic");
@@ -143,11 +156,11 @@
 
     const typeSelect = document.getElementById("skinsTypeFilter");
     const presentTypes = Array.from(new Set(items.map((i) => i.type).filter(Boolean)));
-    presentTypes.sort((a, b) => a.localeCompare(b));
+    presentTypes.sort((a, b) => getTypeLabel(a).localeCompare(getTypeLabel(b)));
     presentTypes.forEach((type) => {
       const opt = document.createElement("option");
-      opt.value = type;
-      opt.textContent = type;
+      opt.value = type; // фильтрация — по реальному значению из data.json
+      opt.textContent = getTypeLabel(type); // а показываем — человекочитаемое название
       typeSelect.appendChild(opt);
     });
   }
@@ -258,7 +271,7 @@
         }
         const typeLabel = document.createElement("span");
         typeLabel.className = "card__type-label";
-        typeLabel.textContent = item.type;
+        typeLabel.textContent = getTypeLabel(item.type);
         typeEl.appendChild(typeLabel);
         card.appendChild(typeEl);
       }
@@ -280,12 +293,16 @@
     CATEGORIES.forEach(renderSection);
   }
 
+  /** Уникальный ключ аспекта для сравнения "тот же самый или другой" (был "number", теперь пара координат). */
+  function aspectKey(aspect) {
+    return aspect ? `${aspect.category}.${aspect.variant}` : null;
+  }
+
   function selectItem(category, item, aspect) {
     const alreadySelected =
       selection[category] &&
       selection[category].name === item.name &&
-      (selection[category].aspect ? selection[category].aspect.number : null) ===
-        (aspect ? aspect.number : null);
+      aspectKey(selection[category].aspect) === aspectKey(aspect);
 
     if (alreadySelected) {
       selection[category] = null;
@@ -322,41 +339,58 @@
     popover.appendChild(title);
 
     const grid = document.createElement("div");
-    grid.className = "mythic-popover__grid";
+    grid.className = "mythic-popover__rows";
 
-    const currentAspectNumber =
+    const currentAspectKey =
       selection[category] && selection[category].name === item.name && selection[category].aspect
-        ? selection[category].aspect.number
+        ? aspectKey(selection[category].aspect)
         : null;
 
+    // группируем плоский список аспектов по category — каждая категория своей строкой,
+    // варианты внутри неё — по порядку, слева направо
+    const byCategory = new Map();
     item.aspects.forEach((aspect) => {
-      const option = document.createElement("button");
-      option.type = "button";
-      option.className = "mythic-popover__option";
-      if (aspect.number === currentAspectNumber) option.classList.add("is-selected");
-
-      const imgWrap = document.createElement("div");
-      imgWrap.className = "mythic-popover__option-image";
-      const img = document.createElement("img");
-      img.src = aspect.image;
-      img.alt = aspect.name;
-      img.loading = "lazy";
-      imgWrap.appendChild(img);
-      option.appendChild(imgWrap);
-
-      const nameEl = document.createElement("div");
-      nameEl.className = "mythic-popover__option-name";
-      nameEl.textContent = aspect.name;
-      option.appendChild(nameEl);
-
-      option.addEventListener("click", (evt) => {
-        evt.stopPropagation();
-        selectItem(category, item, aspect);
-        closeMythicPopover();
-      });
-
-      grid.appendChild(option);
+      if (!byCategory.has(aspect.category)) byCategory.set(aspect.category, []);
+      byCategory.get(aspect.category).push(aspect);
     });
+
+    Array.from(byCategory.keys())
+      .sort((a, b) => a - b)
+      .forEach((categoryNum) => {
+        const row = document.createElement("div");
+        row.className = "mythic-popover__row";
+
+        byCategory.get(categoryNum).forEach((aspect) => {
+          const option = document.createElement("button");
+          option.type = "button";
+          option.className = "mythic-popover__option";
+          if (aspectKey(aspect) === currentAspectKey) option.classList.add("is-selected");
+
+          const imgWrap = document.createElement("div");
+          imgWrap.className = "mythic-popover__option-image";
+          const img = document.createElement("img");
+          img.src = aspect.image;
+          img.alt = aspect.name;
+          img.loading = "lazy";
+          imgWrap.appendChild(img);
+          option.appendChild(imgWrap);
+
+          const nameEl = document.createElement("div");
+          nameEl.className = "mythic-popover__option-name";
+          nameEl.textContent = aspect.name;
+          option.appendChild(nameEl);
+
+          option.addEventListener("click", (evt) => {
+            evt.stopPropagation();
+            selectItem(category, item, aspect);
+            closeMythicPopover();
+          });
+
+          row.appendChild(option);
+        });
+
+        grid.appendChild(row);
+      });
 
     popover.appendChild(grid);
     document.body.appendChild(popover);
