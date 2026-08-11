@@ -279,7 +279,7 @@
       card.appendChild(nameEl);
 
       if (isMythic) {
-        card.addEventListener("click", (evt) => toggleMythicPopover(evt.currentTarget, category, item));
+        card.addEventListener("click", (evt) => openMythicPopover(evt.currentTarget, category, item));
       } else {
         card.addEventListener("click", () => selectItem(category, item));
       }
@@ -298,125 +298,164 @@
     return aspect ? `${aspect.category}.${aspect.variant}` : null;
   }
 
-  function selectItem(category, item, aspect) {
-    const alreadySelected =
-      selection[category] &&
-      selection[category].name === item.name &&
-      aspectKey(selection[category].aspect) === aspectKey(aspect);
-
-    if (alreadySelected) {
-      selection[category] = null;
-    } else {
-      selection[category] = aspect ? Object.assign({}, item, { aspect }) : item;
-    }
+  function selectItem(category, item) {
+    // повторный клик по уже выбранному пункту снимает выбор
+    const alreadySelected = selection[category] && selection[category].name === item.name;
+    selection[category] = alreadySelected ? null : item;
     userEditedOutput = false; // новый выбор — пересобираем текст автоматически
     renderSection(category);
     renderSelectionBar();
   }
 
-  // ---------- Попап выбора mythic-эффекта ----------
+  // ---------- Попап выбора mythic-эффектов ----------
+  //
+  // Правила:
+  // - выбор в самом попапе НЕ закрывает его и НЕ применяется сразу —
+  //   только по кнопке "Применить" или крестику в шапке;
+  // - в каждой строке (категории) можно выбрать максимум 1 вариант,
+  //   но выбор можно сделать НЕЗАВИСИМО в нескольких разных строках сразу
+  //   (то есть по итогу может быть выбрано до одного варианта на каждую
+  //   категорию одновременно).
 
-  let openPopover = null; // { el, cleanup }
+  let openPopover = null; // { el, itemName, staged: Map<category, aspect> }
 
   function closeMythicPopover() {
     if (!openPopover) return;
-    openPopover.cleanup();
     if (openPopover.el.parentNode) openPopover.el.parentNode.removeChild(openPopover.el);
     openPopover = null;
   }
 
-  function toggleMythicPopover(cardEl, category, item) {
-    const isSameCardOpen = openPopover && openPopover.itemName === item.name;
+  function openMythicPopover(cardEl, category, item) {
+    if (openPopover && openPopover.itemName === item.name) return; // уже открыт для этой же карточки
     closeMythicPopover();
-    if (isSameCardOpen) return; // повторный клик по той же карточке — просто закрыть
+
+    // предзаполняем текущим выбором (если уже что-то выбрано для этого скина раньше)
+    const staged = new Map();
+    if (selection[category] && selection[category].name === item.name && selection[category].aspects) {
+      selection[category].aspects.forEach((a) => staged.set(a.category, a));
+    }
 
     const popover = document.createElement("div");
     popover.className = "mythic-popover";
 
+    // ---- шапка: заголовок + крестик закрытия ----
+    const header = document.createElement("div");
+    header.className = "mythic-popover__header";
     const title = document.createElement("p");
     title.className = "mythic-popover__title";
-    title.textContent = `${item.name} — выберите эффект`;
-    popover.appendChild(title);
+    title.textContent = `${item.name} — эффекты`;
+    header.appendChild(title);
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.className = "mythic-popover__close";
+    closeBtn.setAttribute("aria-label", "Закрыть без применения");
+    closeBtn.textContent = "✕";
+    closeBtn.addEventListener("click", (evt) => {
+      evt.stopPropagation();
+      closeMythicPopover();
+    });
+    header.appendChild(closeBtn);
+    popover.appendChild(header);
 
-    const grid = document.createElement("div");
-    grid.className = "mythic-popover__rows";
+    // ---- содержимое: строки по категориям, каждая — своя горизонтальная полоса ----
+    const content = document.createElement("div");
+    content.className = "mythic-popover__content";
 
-    const currentAspectKey =
-      selection[category] && selection[category].name === item.name && selection[category].aspect
-        ? aspectKey(selection[category].aspect)
-        : null;
-
-    // группируем плоский список аспектов по category — каждая категория своей строкой,
-    // варианты внутри неё — по порядку, слева направо
     const byCategory = new Map();
     item.aspects.forEach((aspect) => {
       if (!byCategory.has(aspect.category)) byCategory.set(aspect.category, []);
       byCategory.get(aspect.category).push(aspect);
     });
 
-    Array.from(byCategory.keys())
-      .sort((a, b) => a - b)
-      .forEach((categoryNum) => {
-        const row = document.createElement("div");
-        row.className = "mythic-popover__row";
+    function renderRows() {
+      content.innerHTML = "";
+      Array.from(byCategory.keys())
+        .sort((a, b) => a - b)
+        .forEach((categoryNum) => {
+          const rowGroup = document.createElement("div");
+          rowGroup.className = "mythic-popover__row-group";
 
-        byCategory.get(categoryNum).forEach((aspect) => {
-          const option = document.createElement("button");
-          option.type = "button";
-          option.className = "mythic-popover__option";
-          if (aspectKey(aspect) === currentAspectKey) option.classList.add("is-selected");
+          const rowHeader = document.createElement("div");
+          rowHeader.className = "mythic-popover__row-header";
+          const rowNumber = document.createElement("span");
+          rowNumber.className = "mythic-popover__row-number";
+          rowNumber.textContent = categoryNum;
+          const rowDivider = document.createElement("span");
+          rowDivider.className = "mythic-popover__row-divider";
+          rowHeader.appendChild(rowNumber);
+          rowHeader.appendChild(rowDivider);
+          rowGroup.appendChild(rowHeader);
 
-          const imgWrap = document.createElement("div");
-          imgWrap.className = "mythic-popover__option-image";
-          const img = document.createElement("img");
-          img.src = aspect.image;
-          img.alt = aspect.name;
-          img.loading = "lazy";
-          imgWrap.appendChild(img);
-          option.appendChild(imgWrap);
+          const row = document.createElement("div");
+          row.className = "mythic-popover__row";
 
-          const nameEl = document.createElement("div");
-          nameEl.className = "mythic-popover__option-name";
-          nameEl.textContent = aspect.name;
-          option.appendChild(nameEl);
+          byCategory.get(categoryNum).forEach((aspect) => {
+            const option = document.createElement("button");
+            option.type = "button";
+            option.className = "mythic-popover__option";
+            const isStaged = staged.get(aspect.category) && aspectKey(staged.get(aspect.category)) === aspectKey(aspect);
+            if (isStaged) option.classList.add("is-selected");
 
-          option.addEventListener("click", (evt) => {
-            evt.stopPropagation();
-            selectItem(category, item, aspect);
-            closeMythicPopover();
+            const imgWrap = document.createElement("div");
+            imgWrap.className = "mythic-popover__option-image";
+            const img = document.createElement("img");
+            img.src = aspect.image;
+            img.alt = aspect.name;
+            img.loading = "lazy";
+            imgWrap.appendChild(img);
+            option.appendChild(imgWrap);
+
+            const nameEl = document.createElement("div");
+            nameEl.className = "mythic-popover__option-name";
+            nameEl.textContent = aspect.name;
+            option.appendChild(nameEl);
+
+            option.addEventListener("click", (evt) => {
+              evt.stopPropagation();
+              // клик по уже выбранному в этой строке варианту — снимает выбор
+              // именно в этой строке; клик по другому — заменяет выбор строки.
+              // Другие строки не трогаются — можно выбирать по одной в каждой.
+              if (isStaged) {
+                staged.delete(aspect.category);
+              } else {
+                staged.set(aspect.category, aspect);
+              }
+              renderRows(); // локальный перерендер попапа — сам попап не закрывается
+            });
+
+            row.appendChild(option);
           });
 
-          row.appendChild(option);
+          rowGroup.appendChild(row);
+          content.appendChild(rowGroup);
         });
+    }
+    renderRows();
+    popover.appendChild(content);
 
-        grid.appendChild(row);
-      });
+    // ---- футер: кнопка "Применить" ----
+    const footer = document.createElement("div");
+    footer.className = "mythic-popover__footer";
+    const applyBtn = document.createElement("button");
+    applyBtn.type = "button";
+    applyBtn.className = "btn btn--primary";
+    applyBtn.textContent = "Применить";
+    applyBtn.addEventListener("click", (evt) => {
+      evt.stopPropagation();
+      const chosenAspects = Array.from(staged.values()).sort((a, b) => a.category - b.category);
+      selection[category] = Object.assign({}, item, { aspects: chosenAspects });
+      userEditedOutput = false;
+      closeMythicPopover();
+      renderSection(category);
+      renderSelectionBar();
+    });
+    footer.appendChild(applyBtn);
+    popover.appendChild(footer);
 
-    popover.appendChild(grid);
     document.body.appendChild(popover);
     positionPopover(popover, cardEl);
 
-    // закрытие: клик снаружи, скролл, Escape
-    const onOutsideClick = (evt) => {
-      if (!popover.contains(evt.target) && evt.target !== cardEl) closeMythicPopover();
-    };
-    const onScroll = () => closeMythicPopover();
-    const onKeydown = (evt) => {
-      if (evt.key === "Escape") closeMythicPopover();
-    };
-    document.addEventListener("click", onOutsideClick, true);
-    window.addEventListener("scroll", onScroll, { passive: true, once: true });
-    document.addEventListener("keydown", onKeydown);
-
-    openPopover = {
-      el: popover,
-      itemName: item.name,
-      cleanup: () => {
-        document.removeEventListener("click", onOutsideClick, true);
-        window.removeEventListener("scroll", onScroll);
-        document.removeEventListener("keydown", onKeydown);
-      },
-    };
+    openPopover = { el: popover, itemName: item.name };
   }
 
   function positionPopover(popover, anchorEl) {
@@ -440,7 +479,10 @@
 
   function displayNameFor(item) {
     if (!item) return "—";
-    return item.aspect ? `${item.name} (${item.aspect.name})` : item.name;
+    if (item.aspects && item.aspects.length) {
+      return `${item.name} (${item.aspects.map((a) => a.name).join(", ")})`;
+    }
+    return item.name;
   }
 
   function renderSelectionBar() {
@@ -518,57 +560,48 @@
   }
 
   function setupScrollSpy() {
-    if (typeof IntersectionObserver === "undefined") {
-      return; // старые браузеры — просто без подсветки, работоспособность не страдает
-    }
     const sections = CATEGORIES.map((cat) => document.getElementById(`section-${cat}`)).filter(Boolean);
-    const topbar = document.querySelector(".topbar");
-    const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 0;
+    if (sections.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // среди пересекающих зону наблюдения выбираем ту, что ближе всего к верху
-        const visible = entries.filter((e) => e.isIntersecting);
-        if (visible.length === 0) return;
-        visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        const topCategory = visible[0].target.dataset.category;
-        setActiveNav(topCategory);
-      },
-      {
-        // узкая полоса чуть ниже липкого хэдера — раздел считается "активным",
-        // когда его начало проходит через эту полосу
-        rootMargin: `-${topbarHeight + 4}px 0px -70% 0px`,
-        threshold: 0,
+    function computeActive() {
+      const topbar = document.querySelector(".topbar");
+      const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 0;
+      // линия чуть ниже липкого хэдера — раздел считается активным, когда
+      // его начало уже прошло выше этой линии (то есть мы "внутри" него)
+      const activationLine = topbarHeight + 40;
+
+      // секции идут в том же порядке, что и на странице — берём ПОСЛЕДНЮЮ,
+      // чья верхняя граница уже выше линии активации. Этот подход, в отличие
+      // от IntersectionObserver с узкой зоной наблюдения, не может "перепрыгнуть"
+      // короткий раздел между двумя длинными и корректно работает у самого
+      // низа страницы без отдельного специального случая.
+      let activeCategory = sections[0].dataset.category;
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= activationLine) {
+          activeCategory = section.dataset.category;
+        } else {
+          break;
+        }
       }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    // Дополнение к IntersectionObserver: когда последний раздел короче
-    // видимой области (или страница просто докручена до конца), его начало
-    // может никогда не попасть в узкую зону наблюдения выше — тогда
-    // IntersectionObserver не срабатывает и подсветка "залипает" на
-    // предыдущем разделе. Подстраховываемся: у самого низа страницы
-    // принудительно подсвечиваем последнюю категорию.
-    const lastCategory = CATEGORIES[CATEGORIES.length - 1];
-    let ticking = false;
-    function checkBottom() {
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-      if (scrolledToBottom) setActiveNav(lastCategory);
-      ticking = false;
+      setActiveNav(activeCategory);
     }
+
+    let ticking = false;
     window.addEventListener(
       "scroll",
       () => {
         if (!ticking) {
-          requestAnimationFrame(checkBottom);
+          requestAnimationFrame(() => {
+            computeActive();
+            ticking = false;
+          });
           ticking = true;
         }
       },
       { passive: true }
     );
-    checkBottom();
+    window.addEventListener("resize", computeActive);
+    computeActive();
   }
 
   // ---------- Обработчики панели фильтров/сортировки ----------
@@ -636,6 +669,11 @@
       copyBtn.textContent = "Копировать";
       copyBtn.classList.remove("is-copied");
     }, 1200);
+  });
+
+  // Escape закрывает попап mythic-эффектов без применения (наравне с крестиком)
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") closeMythicPopover();
   });
 
   setupSkinsFilterBar();
