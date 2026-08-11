@@ -128,6 +128,7 @@
 	// нет в этом списке, показываются как есть (без перевода).
 	const TYPE_LABELS = {
 		'mythic-configurable': 'Mythic',
+		Common: 'Общие',
 	}
 
 	function getTypeLabel(type) {
