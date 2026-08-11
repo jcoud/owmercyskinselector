@@ -2,7 +2,7 @@
   "use strict";
 
   // data.js должен объявить глобальную переменную DATA = {
-  //   skins: {referenceImage, items: [...]},
+  //   skins: {referenceImage, items: [...]},  // items: {name, image, rarity, type, aspects?}
   //   weaponNames: {...},
   //   weaponColors: {...}
   // }
@@ -40,8 +40,7 @@
   }
 
   // Цвета редкости для НАЗВАНИЙ скинов (не фона карточки — только текст).
-  // Код редкости приходит из rarity.json (см. fetch_cosmetic_images.py) через
-  // data.js как item.rarity: "c"/"e"/"r"/"l"/"u"/"m".
+  // item.rarity приходит из data.json через build_data.py как "c"/"e"/"r"/"l"/"u"/"m".
   // mythic задаётся отдельным CSS-классом (градиентный текст), остальные —
   // обычным цветом.
   const RARITY_STYLES = {
@@ -52,6 +51,18 @@
     u: { color: "#CF2018" },
     m: { className: "rarity-mythic" },
   };
+
+  const RARITY_LABELS = {
+    c: "Common",
+    r: "Rare",
+    e: "Epic",
+    l: "Legendary",
+    u: "Ultra",
+    m: "Mythic",
+  };
+
+  // Порядок редкости от низшей к высшей — используется для сортировки "по раритетности".
+  const RARITY_ORDER = { c: 0, r: 1, e: 2, l: 3, u: 4, m: 5 };
 
   /** Применяет (или сбрасывает, если rarity нет/неизвестна) стиль редкости к элементу с текстом названия. */
   function applyRarityStyle(el, rarity) {
@@ -66,11 +77,19 @@
     }
   }
 
-  // текущий выбор по каждой категории: { skins: {name, image} | null, ... }
+  // текущий выбор по каждой категории: { skins: {name, image, ..., aspect?} | null, ... }
   const selection = {
     skins: null,
     weaponNames: null,
     weaponColors: null,
+  };
+
+  // фильтры/сортировка раздела "Скин"
+  const skinsFilter = {
+    search: "",
+    rarity: "",
+    type: "",
+    sort: "name-asc",
   };
 
   let userEditedOutput = false; // если человек сам поправил текст — не перетираем это при новом выборе
@@ -80,10 +99,70 @@
   const resetFormatBtn = document.getElementById("resetFormatBtn");
   const navButtons = Array.from(document.querySelectorAll(".tab"));
 
+  // ---------- Фильтрация/сортировка раздела "Скин" ----------
+
+  function getFilteredSortedSkins() {
+    const items = (data.skins && data.skins.items) || [];
+    const search = skinsFilter.search.trim().toLowerCase();
+
+    let filtered = items.filter((item) => {
+      if (search && !item.name.toLowerCase().includes(search)) return false;
+      if (skinsFilter.rarity && item.rarity !== skinsFilter.rarity) return false;
+      if (skinsFilter.type && item.type !== skinsFilter.type) return false;
+      return true;
+    });
+
+    filtered = filtered.slice().sort((a, b) => {
+      if (skinsFilter.sort === "name-desc") {
+        return b.name.localeCompare(a.name);
+      }
+      if (skinsFilter.sort === "rarity") {
+        const ra = a.rarity ? RARITY_ORDER[a.rarity] : -1;
+        const rb = b.rarity ? RARITY_ORDER[b.rarity] : -1;
+        if (rb !== ra) return rb - ra; // от высокой редкости к низкой
+        return a.name.localeCompare(b.name);
+      }
+      return a.name.localeCompare(b.name); // name-asc по умолчанию
+    });
+
+    return filtered;
+  }
+
+  function populateSkinsFilterOptions() {
+    const items = (data.skins && data.skins.items) || [];
+
+    const raritySelect = document.getElementById("skinsRarityFilter");
+    const presentRarities = Array.from(new Set(items.map((i) => i.rarity).filter(Boolean)));
+    presentRarities.sort((a, b) => RARITY_ORDER[a] - RARITY_ORDER[b]);
+    presentRarities.forEach((code) => {
+      const opt = document.createElement("option");
+      opt.value = code;
+      opt.textContent = RARITY_LABELS[code] || code;
+      raritySelect.appendChild(opt);
+    });
+
+    const typeSelect = document.getElementById("skinsTypeFilter");
+    const presentTypes = Array.from(new Set(items.map((i) => i.type).filter(Boolean)));
+    presentTypes.sort((a, b) => a.localeCompare(b));
+    presentTypes.forEach((type) => {
+      const opt = document.createElement("option");
+      opt.value = type;
+      opt.textContent = type;
+      typeSelect.appendChild(opt);
+    });
+  }
+
+  function updateSkinsFilterCount(shown, total) {
+    const countEl = document.getElementById("skinsFilterCount");
+    if (!countEl) return;
+    countEl.textContent = shown === total ? `${total}` : `${shown} из ${total}`;
+  }
+
+  // ---------- Рендер разделов ----------
+
   function renderSection(category) {
     const bodyEl = document.getElementById(`body-${category}`);
     const categoryData = data[category] || { referenceImage: null, items: [] };
-    const items = categoryData.items || [];
     bodyEl.innerHTML = "";
 
     if (categoryData.referenceImage) {
@@ -96,10 +175,25 @@
       bodyEl.appendChild(refWrap);
     }
 
-    if (items.length === 0) {
+    const totalItems = (categoryData.items || []).length;
+    const items = category === "skins" ? getFilteredSortedSkins() : (categoryData.items || []);
+
+    if (category === "skins") {
+      updateSkinsFilterCount(items.length, totalItems);
+    }
+
+    if (totalItems === 0) {
       const empty = document.createElement("p");
       empty.className = "empty-state";
       empty.textContent = "В этом разделе пока нет картинок.";
+      bodyEl.appendChild(empty);
+      return;
+    }
+
+    if (items.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "empty-state";
+      empty.textContent = "Ничего не найдено по текущим фильтрам.";
       bodyEl.appendChild(empty);
       return;
     }
@@ -112,6 +206,9 @@
       card.type = "button";
       card.className = "card";
       card.setAttribute("role", "option");
+
+      const isMythic = Array.isArray(item.aspects) && item.aspects.length > 0;
+      if (isMythic) card.classList.add("card--mythic");
 
       const isSelected = selection[category] && selection[category].name === item.name;
       if (isSelected) card.classList.add("is-selected");
@@ -148,9 +245,31 @@
         applyRarityStyle(nameEl, item.rarity);
       }
 
+      if (item.type) {
+        const typeEl = document.createElement("div");
+        typeEl.className = "card__type";
+        if (item.typeIcon) {
+          const typeIcon = document.createElement("img");
+          typeIcon.className = "card__type-icon";
+          typeIcon.src = item.typeIcon;
+          typeIcon.alt = "";
+          typeIcon.loading = "lazy";
+          typeEl.appendChild(typeIcon);
+        }
+        const typeLabel = document.createElement("span");
+        typeLabel.className = "card__type-label";
+        typeLabel.textContent = item.type;
+        typeEl.appendChild(typeLabel);
+        card.appendChild(typeEl);
+      }
+
       card.appendChild(nameEl);
 
-      card.addEventListener("click", () => selectItem(category, item));
+      if (isMythic) {
+        card.addEventListener("click", (evt) => toggleMythicPopover(evt.currentTarget, category, item));
+      } else {
+        card.addEventListener("click", () => selectItem(category, item));
+      }
 
       grid.appendChild(card);
     });
@@ -161,16 +280,133 @@
     CATEGORIES.forEach(renderSection);
   }
 
-  function selectItem(category, item) {
-    // повторный клик по уже выбранному пункту снимает выбор
-    if (selection[category] && selection[category].name === item.name) {
+  function selectItem(category, item, aspect) {
+    const alreadySelected =
+      selection[category] &&
+      selection[category].name === item.name &&
+      (selection[category].aspect ? selection[category].aspect.number : null) ===
+        (aspect ? aspect.number : null);
+
+    if (alreadySelected) {
       selection[category] = null;
     } else {
-      selection[category] = item;
+      selection[category] = aspect ? Object.assign({}, item, { aspect }) : item;
     }
     userEditedOutput = false; // новый выбор — пересобираем текст автоматически
     renderSection(category);
     renderSelectionBar();
+  }
+
+  // ---------- Попап выбора mythic-эффекта ----------
+
+  let openPopover = null; // { el, cleanup }
+
+  function closeMythicPopover() {
+    if (!openPopover) return;
+    openPopover.cleanup();
+    if (openPopover.el.parentNode) openPopover.el.parentNode.removeChild(openPopover.el);
+    openPopover = null;
+  }
+
+  function toggleMythicPopover(cardEl, category, item) {
+    const isSameCardOpen = openPopover && openPopover.itemName === item.name;
+    closeMythicPopover();
+    if (isSameCardOpen) return; // повторный клик по той же карточке — просто закрыть
+
+    const popover = document.createElement("div");
+    popover.className = "mythic-popover";
+
+    const title = document.createElement("p");
+    title.className = "mythic-popover__title";
+    title.textContent = `${item.name} — выберите эффект`;
+    popover.appendChild(title);
+
+    const grid = document.createElement("div");
+    grid.className = "mythic-popover__grid";
+
+    const currentAspectNumber =
+      selection[category] && selection[category].name === item.name && selection[category].aspect
+        ? selection[category].aspect.number
+        : null;
+
+    item.aspects.forEach((aspect) => {
+      const option = document.createElement("button");
+      option.type = "button";
+      option.className = "mythic-popover__option";
+      if (aspect.number === currentAspectNumber) option.classList.add("is-selected");
+
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "mythic-popover__option-image";
+      const img = document.createElement("img");
+      img.src = aspect.image;
+      img.alt = aspect.name;
+      img.loading = "lazy";
+      imgWrap.appendChild(img);
+      option.appendChild(imgWrap);
+
+      const nameEl = document.createElement("div");
+      nameEl.className = "mythic-popover__option-name";
+      nameEl.textContent = aspect.name;
+      option.appendChild(nameEl);
+
+      option.addEventListener("click", (evt) => {
+        evt.stopPropagation();
+        selectItem(category, item, aspect);
+        closeMythicPopover();
+      });
+
+      grid.appendChild(option);
+    });
+
+    popover.appendChild(grid);
+    document.body.appendChild(popover);
+    positionPopover(popover, cardEl);
+
+    // закрытие: клик снаружи, скролл, Escape
+    const onOutsideClick = (evt) => {
+      if (!popover.contains(evt.target) && evt.target !== cardEl) closeMythicPopover();
+    };
+    const onScroll = () => closeMythicPopover();
+    const onKeydown = (evt) => {
+      if (evt.key === "Escape") closeMythicPopover();
+    };
+    document.addEventListener("click", onOutsideClick, true);
+    window.addEventListener("scroll", onScroll, { passive: true, once: true });
+    document.addEventListener("keydown", onKeydown);
+
+    openPopover = {
+      el: popover,
+      itemName: item.name,
+      cleanup: () => {
+        document.removeEventListener("click", onOutsideClick, true);
+        window.removeEventListener("scroll", onScroll);
+        document.removeEventListener("keydown", onKeydown);
+      },
+    };
+  }
+
+  function positionPopover(popover, anchorEl) {
+    const rect = anchorEl.getBoundingClientRect();
+    const scrollX = window.scrollX || window.pageXOffset;
+    const scrollY = window.scrollY || window.pageYOffset;
+    const popoverWidth = popover.offsetWidth || 280;
+
+    let left = rect.left + scrollX;
+    // не даём попапу вылезти за правый край окна
+    const maxLeft = scrollX + document.documentElement.clientWidth - popoverWidth - 12;
+    if (left > maxLeft) left = Math.max(scrollX + 12, maxLeft);
+
+    const top = rect.bottom + scrollY + 8;
+
+    popover.style.left = `${left}px`;
+    popover.style.top = `${top}px`;
+  }
+
+  // ---------- Нижняя закреплённая панель ----------
+
+  function displayNameFor(item) {
+    if (!item) return "—";
+    return item.aspect ? `${item.name} (${item.aspect.name})` : item.name;
   }
 
   function renderSelectionBar() {
@@ -195,7 +431,7 @@
           // миниатюры и без рамки на итоговом блоке
           thumbEl.classList.add("selection-slot__thumb--text");
         }
-        valueEl.textContent = item.name;
+        valueEl.textContent = displayNameFor(item);
 
         if (item.rarity) {
           applyRarityStyle(valueEl, item.rarity);
@@ -214,11 +450,11 @@
   }
 
   function composeOutputText() {
-    // Формат по умолчанию: "Скин - Оружие (Цвет)".
+    // Формат по умолчанию: "Скин (Эффект) - Оружие (Цвет)".
     // Поле редактируемое — можно поправить вручную под свой формат,
     // а кнопка "Сбросить формат" вернёт именно этот шаблон.
     const parts = [];
-    if (selection.skins) parts.push(selection.skins.name);
+    if (selection.skins) parts.push(displayNameFor(selection.skins));
     if (selection.weaponNames) parts.push(selection.weaponNames.name);
 
     let text = parts.join(" - ");
@@ -301,6 +537,46 @@
     checkBottom();
   }
 
+  // ---------- Обработчики панели фильтров/сортировки ----------
+
+  function setupSkinsFilterBar() {
+    const searchEl = document.getElementById("skinsSearch");
+    const rarityEl = document.getElementById("skinsRarityFilter");
+    const typeEl = document.getElementById("skinsTypeFilter");
+    const sortEl = document.getElementById("skinsSort");
+    const resetBtn = document.getElementById("skinsFilterReset");
+
+    populateSkinsFilterOptions();
+
+    searchEl.addEventListener("input", () => {
+      skinsFilter.search = searchEl.value;
+      renderSection("skins");
+    });
+    rarityEl.addEventListener("change", () => {
+      skinsFilter.rarity = rarityEl.value;
+      renderSection("skins");
+    });
+    typeEl.addEventListener("change", () => {
+      skinsFilter.type = typeEl.value;
+      renderSection("skins");
+    });
+    sortEl.addEventListener("change", () => {
+      skinsFilter.sort = sortEl.value;
+      renderSection("skins");
+    });
+    resetBtn.addEventListener("click", () => {
+      skinsFilter.search = "";
+      skinsFilter.rarity = "";
+      skinsFilter.type = "";
+      skinsFilter.sort = "name-asc";
+      searchEl.value = "";
+      rarityEl.value = "";
+      typeEl.value = "";
+      sortEl.value = "name-asc";
+      renderSection("skins");
+    });
+  }
+
   outputField.addEventListener("input", () => {
     userEditedOutput = true;
   });
@@ -328,6 +604,7 @@
     }, 1200);
   });
 
+  setupSkinsFilterBar();
   renderAllSections();
   renderSelectionBar();
   setupScrollSpy();

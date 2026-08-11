@@ -128,6 +128,15 @@ body {
   border-top: 1px solid var(--card-border);
 }
 
+/* Разделы "Оружие" и "Цвет оружия" обычно короче остальных (мало пунктов,
+   без картинок для цветов) — задаём минимальную высоту, иначе им не
+   хватает "территории" для срабатывания скроллспая и удобного перехода
+   по клику на навигацию (проскроллить было бы почти нечего). */
+#section-weaponNames,
+#section-weaponColors {
+  min-height: 55vh;
+}
+
 .section__title {
   font-family: var(--font-display);
   font-weight: 700;
@@ -144,6 +153,72 @@ body {
   font-weight: 600;
   color: var(--accent-gold);
   opacity: 0.8;
+}
+
+/* ---------- Панель фильтров/сортировки (раздел "Скин") ---------- */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-bar__search {
+  flex: 1;
+  min-width: 160px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.filter-bar__search:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}
+
+.filter-bar__select {
+  background: var(--bg-elevated);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 9px 10px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-bar__select:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}
+
+.filter-bar__count {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.filter-bar__reset {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--accent-cyan);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 2px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.filter-bar__reset:hover {
+  color: var(--text);
 }
 
 .gallery__grid {
@@ -228,6 +303,98 @@ body {
   justify-content: center;
 }
 
+/* Индикатор в углу карточки mythic-скина — подсказывает, что при клике
+   откроется выбор эффекта, а не сразу выбор скина */
+.card--mythic::before {
+  content: "4";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(20, 22, 29, 0.85);
+  border: 1px solid #c1269a;
+  color: #f4f5f8;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* ---------- Попап выбора mythic-эффекта ---------- */
+
+.mythic-popover {
+  position: absolute;
+  z-index: 30;
+  width: 280px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
+}
+
+.mythic-popover__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.mythic-popover__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.mythic-popover__option {
+  background: var(--bg-elevated);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  padding: 0;
+  transition: border-color 0.15s ease;
+}
+
+.mythic-popover__option:hover {
+  border-color: var(--accent-cyan);
+}
+
+.mythic-popover__option.is-selected {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px var(--accent-gold);
+}
+
+.mythic-popover__option-image {
+  aspect-ratio: 1 / 1;
+  background: #14171f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mythic-popover__option-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mythic-popover__option-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 6px 4px;
+}
+
 .card__image-wrap {
   aspect-ratio: 1 / 1;
   background: #14171f;
@@ -240,7 +407,7 @@ body {
 .card__image-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .card__name {
@@ -252,6 +419,37 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.card__type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 8px 0;
+}
+
+.card__type-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.card__type-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card__type + .card__name {
+  padding-top: 2px;
 }
 
 /* Раритетность mythic — градиентный текст (остальные раритетности задаются

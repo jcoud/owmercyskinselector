@@ -32,6 +32,24 @@
 <main class="page">
   <section class="section" id="section-skins" data-category="skins">
     <h2 class="section__title"><span class="section__index">01</span> Скин</h2>
+
+    <div class="filter-bar" id="skinsFilterBar">
+      <input type="text" id="skinsSearch" class="filter-bar__search" placeholder="Поиск по названию…" aria-label="Поиск по названию">
+      <select id="skinsRarityFilter" class="filter-bar__select" aria-label="Фильтр по раритетности">
+        <option value="">Раритетность: любая</option>
+      </select>
+      <select id="skinsTypeFilter" class="filter-bar__select" aria-label="Фильтр по типу">
+        <option value="">Тип: любой</option>
+      </select>
+      <select id="skinsSort" class="filter-bar__select" aria-label="Сортировка">
+        <option value="name-asc">Название A→Я</option>
+        <option value="name-desc">Название Я→A</option>
+        <option value="rarity">По раритетности</option>
+      </select>
+      <button type="button" class="filter-bar__reset" id="skinsFilterReset">Сбросить фильтры</button>
+      <span class="filter-bar__count" id="skinsFilterCount"></span>
+    </div>
+
     <div class="section__body" id="body-skins">
       <!-- рендерится через app.js -->
     </div>
