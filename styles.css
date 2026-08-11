@@ -254,6 +254,16 @@ body {
   text-overflow: ellipsis;
 }
 
+/* Раритетность mythic — градиентный текст (остальные раритетности задаются
+   обычным цветом прямо через inline style, без отдельных классов) */
+.rarity-mythic {
+  background: linear-gradient(90deg, #01c19d, #dddddd, #c1269a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 /* ---------- Пустое состояние (внутри раздела) ---------- */
 
 .empty-state {

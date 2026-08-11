@@ -39,6 +39,33 @@
     return luminance > 0.45 ? "#14161d" : "#f4f5f8";
   }
 
+  // Цвета редкости для НАЗВАНИЙ скинов (не фона карточки — только текст).
+  // Код редкости приходит из rarity.json (см. fetch_cosmetic_images.py) через
+  // data.js как item.rarity: "c"/"e"/"r"/"l"/"u"/"m".
+  // mythic задаётся отдельным CSS-классом (градиентный текст), остальные —
+  // обычным цветом.
+  const RARITY_STYLES = {
+    c: { color: "#ffffff" },
+    r: { color: "#0b9ccf" },
+    e: { color: "#ed3cef" },
+    l: { color: "#ff9c00" },
+    u: { color: "#CF2018" },
+    m: { className: "rarity-mythic" },
+  };
+
+  /** Применяет (или сбрасывает, если rarity нет/неизвестна) стиль редкости к элементу с текстом названия. */
+  function applyRarityStyle(el, rarity) {
+    el.classList.remove("rarity-mythic");
+    el.style.color = "";
+    const style = rarity ? RARITY_STYLES[rarity] : null;
+    if (!style) return;
+    if (style.className) {
+      el.classList.add(style.className);
+    } else if (style.color) {
+      el.style.color = style.color;
+    }
+  }
+
   // текущий выбор по каждой категории: { skins: {name, image} | null, ... }
   const selection = {
     skins: null,
@@ -117,6 +144,10 @@
         nameEl.style.color = textColor;
       }
 
+      if (item.rarity) {
+        applyRarityStyle(nameEl, item.rarity);
+      }
+
       card.appendChild(nameEl);
 
       card.addEventListener("click", () => selectItem(category, item));
@@ -149,35 +180,33 @@
       const valueEl = document.getElementById(`value-${cat}`);
 
       thumbEl.innerHTML = "";
-      thumbEl.style.background = "";
-      valueEl.style.color = "";
+      thumbEl.classList.remove("selection-slot__thumb--text");
+      applyRarityStyle(valueEl, null); // сброс перед новым рендером
 
       if (item) {
-        const colorHex = getColorHex(item.name);
         if (item.image) {
           const img = document.createElement("img");
           img.src = item.image;
           img.alt = "";
           thumbEl.appendChild(img);
-          thumbEl.classList.remove("selection-slot__thumb--text");
-        } else if (colorHex) {
-          thumbEl.classList.remove("selection-slot__thumb--text");
-          thumbEl.style.background = colorHex;
         } else {
+          // текстовые пункты (сейчас — цвета оружия): миниатюра нейтральная,
+          // цвет показывается ТОЛЬКО в тексте названия ниже — без заливки
+          // миниатюры и без рамки на итоговом блоке
           thumbEl.classList.add("selection-slot__thumb--text");
         }
         valueEl.textContent = item.name;
-        if (colorHex) valueEl.style.color = colorHex;
+
+        if (item.rarity) {
+          applyRarityStyle(valueEl, item.rarity);
+        } else {
+          const colorHex = getColorHex(item.name);
+          if (colorHex) valueEl.style.color = colorHex;
+        }
       } else {
-        thumbEl.classList.remove("selection-slot__thumb--text");
         valueEl.textContent = "—";
       }
     });
-
-    // итоговый блок конфигурации подсвечивается цветом выбранного варианта оружия
-    const colorHex = selection.weaponColors ? getColorHex(selection.weaponColors.name) : null;
-    outputField.style.borderColor = colorHex || "";
-    outputField.style.boxShadow = colorHex ? `0 0 0 1px ${colorHex}` : "";
 
     if (!userEditedOutput) {
       outputField.value = composeOutputText();
@@ -244,6 +273,32 @@
     );
 
     sections.forEach((section) => observer.observe(section));
+
+    // Дополнение к IntersectionObserver: когда последний раздел короче
+    // видимой области (или страница просто докручена до конца), его начало
+    // может никогда не попасть в узкую зону наблюдения выше — тогда
+    // IntersectionObserver не срабатывает и подсветка "залипает" на
+    // предыдущем разделе. Подстраховываемся: у самого низа страницы
+    // принудительно подсвечиваем последнюю категорию.
+    const lastCategory = CATEGORIES[CATEGORIES.length - 1];
+    let ticking = false;
+    function checkBottom() {
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (scrolledToBottom) setActiveNav(lastCategory);
+      ticking = false;
+    }
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(checkBottom);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+    checkBottom();
   }
 
   outputField.addEventListener("input", () => {
