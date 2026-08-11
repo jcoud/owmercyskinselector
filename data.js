@@ -406,8 +406,7 @@ const DATA = {
         "name": "DEVIL",
         "image": "images/skins/DEVIL.webp",
         "rarity": "l",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "DR. ZIEGLER",
@@ -552,8 +551,7 @@ const DATA = {
         "name": "IMP",
         "image": "images/skins/IMP.webp",
         "rarity": "l",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "INFINITE SEER",
@@ -898,8 +896,7 @@ const DATA = {
         "name": "SIGRúN",
         "image": "images/skins/SIGR%C3%BAN.webp",
         "rarity": "l",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "STADIUM ALL-STAR",
@@ -940,8 +937,7 @@ const DATA = {
         "name": "VALKYRIE",
         "image": "images/skins/VALKYRIE.webp",
         "rarity": "l",
-        "type": "Shop",
-        "typeIcon": "images/types/Shop.webp"
+        "type": "Common"
       },
       {
         "name": "VANCOUVER TITANS AWAY",
