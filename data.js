@@ -187,8 +187,8 @@ const DATA = {
         "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
       },
       {
-        "name": "CLASSIC CONTENDERS",
-        "image": "images/skins/CLASSIC%20CONTENDERS.png",
+        "name": "CLASSIC CONTENDERS HOME",
+        "image": "images/skins/CLASSIC%20CONTENDERS%20HOME.png",
         "rarity": "e",
         "type": "Overwatch League Classic",
         "typeIcon": "images/types/Overwatch%20League%20Classic.webp"
@@ -417,7 +417,7 @@ const DATA = {
       {
         "name": "DRAGOON",
         "image": "images/skins/DRAGOON.webp",
-        "rarity": "e",
+        "rarity": "l",
         "type": "Overwatch Anniversary",
         "typeIcon": "images/types/Overwatch%20Anniversary.webp"
       },
@@ -664,12 +664,6 @@ const DATA = {
         "type": "Common"
       },
       {
-        "name": "OVERWATCH 2",
-        "image": "images/skins/OVERWATCH%202.webp",
-        "rarity": "c",
-        "type": "Common"
-      },
-      {
         "name": "OVERWATCH CHAMPIONS SERIES AWAY",
         "image": "images/skins/OVERWATCH%20CHAMPIONS%20SERIES%20AWAY.png",
         "rarity": "e",
@@ -677,8 +671,8 @@ const DATA = {
         "typeIcon": "images/types/Overwatch%20Esports.webp"
       },
       {
-        "name": "OVERWATCH CHAMPIONS SERIES",
-        "image": "images/skins/OVERWATCH%20CHAMPIONS%20SERIES.png",
+        "name": "OVERWATCH CHAMPIONS SERIES HOME",
+        "image": "images/skins/OVERWATCH%20CHAMPIONS%20SERIES%20HOME.png",
         "rarity": "e",
         "type": "Overwatch Esports",
         "typeIcon": "images/types/Overwatch%20Esports.webp"
@@ -732,6 +726,12 @@ const DATA = {
         "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
+        "name": "OVERWATCH",
+        "image": "images/skins/OVERWATCH.webp",
+        "rarity": "c",
+        "type": "Common"
+      },
+      {
         "name": "OWL GUARDIAN",
         "image": "images/skins/OWL%20GUARDIAN.webp",
         "rarity": "e",
@@ -758,6 +758,13 @@ const DATA = {
         "rarity": "l",
         "type": "BCRF Charity Event",
         "typeIcon": "images/types/BCRF%20Charity%20Event.webp"
+      },
+      {
+        "name": "PIXEL STAR",
+        "image": "images/skins/PIXEL%20STAR.png",
+        "rarity": "l",
+        "type": "Shop",
+        "typeIcon": "images/types/Shop.webp"
       },
       {
         "name": "POMPOMPURIN SKIN",
@@ -893,8 +900,8 @@ const DATA = {
         "typeIcon": "images/types/Overwatch%20League%20OW2.webp"
       },
       {
-        "name": "SIGRúN",
-        "image": "images/skins/SIGR%C3%BAN.webp",
+        "name": "SIGRÚN",
+        "image": "images/skins/SIGR%C3%9AN.webp",
         "rarity": "l",
         "type": "Common"
       },
