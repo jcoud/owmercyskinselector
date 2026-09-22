@@ -391,6 +391,14 @@
 		"rarity": "l",
 		"type": "BCRF Charity Event"
 	},
+	"PUREFLOW": {
+		"rarity": "l",
+		"type": "Shop"
+	},
+	"CAIRO HOLIDAY": {
+		"rarity": "l",
+		"type": "Shop"
+	},
 	"PIXEL STAR": {
 		"rarity": "l",
 		"type": "Shop"

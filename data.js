@@ -53,6 +53,13 @@ const DATA = {
         "typeIcon": "images/types/Shop.webp"
       },
       {
+        "name": "CAIRO HOLIDAY",
+        "image": "images/skins/CAIRO%20HOLIDAY.png",
+        "rarity": "l",
+        "type": "Shop",
+        "typeIcon": "images/types/Shop.webp"
+      },
+      {
         "name": "CAMOUFLAGE",
         "image": "images/skins/CAMOUFLAGE.webp",
         "rarity": "e",
@@ -776,6 +783,13 @@ const DATA = {
       {
         "name": "POOLSIDE",
         "image": "images/skins/POOLSIDE.webp",
+        "rarity": "l",
+        "type": "Shop",
+        "typeIcon": "images/types/Shop.webp"
+      },
+      {
+        "name": "PUREFLOW",
+        "image": "images/skins/PUREFLOW.png",
         "rarity": "l",
         "type": "Shop",
         "typeIcon": "images/types/Shop.webp"
