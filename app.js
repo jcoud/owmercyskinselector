@@ -25,7 +25,7 @@
 	// Регистр и лишние пробелы по краям не важны. Если название не найдено
 	// в данных — в консоли будет предупреждение (чтобы опечатка не молчала).
 	const BAN_LIST = {
-		skins: ['HONEY BEE', 'BLACK CAT', 'CAIRO HOLIDAY'],
+		skins: ['HONEY BEE', 'BLACK CAT'],
 		weaponNames: ['HARD LIGHT'],
 		weaponColors: [],
 	}
