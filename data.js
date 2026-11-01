@@ -527,6 +527,13 @@ const DATA = {
         "typeIcon": "images/types/Shop.webp"
       },
       {
+        "name": "HEART OF MERCY",
+        "image": "images/skins/HEART%20OF%20MERCY.png",
+        "rarity": "e",
+        "type": "Shop",
+        "typeIcon": "images/types/Shop.webp"
+      },
+      {
         "name": "HEAVENLY HOP",
         "image": "images/skins/HEAVENLY%20HOP.webp",
         "rarity": "l",

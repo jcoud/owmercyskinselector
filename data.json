@@ -27,6 +27,10 @@
 		"rarity": "l",
 		"type": "Shop"
 	},
+	"HEART OF MERCY": {
+		"rarity": "e",
+		"type": "Shop"
+	},
 	"CAMOUFLAGE": {
 		"rarity": "e",
 		"type": "Overwatch Archives"
