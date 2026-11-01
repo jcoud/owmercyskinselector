@@ -529,7 +529,7 @@ const DATA = {
       {
         "name": "HEART OF MERCY",
         "image": "images/skins/HEART%20OF%20MERCY.png",
-        "rarity": "e",
+        "rarity": "l",
         "type": "Shop",
         "typeIcon": "images/types/Shop.webp"
       },
